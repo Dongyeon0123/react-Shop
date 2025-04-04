@@ -7,6 +7,7 @@ import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.jsx'
 import Shoes from './shoes';
+import { Routes, Route, Link } from 'react-router-dom'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+
       <Navbar bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
@@ -27,11 +29,42 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}>
+      <Link to="/">홈</Link>
+      <Link to="detail">상세페이지</Link>
 
-      </div>
+      <Routes>
+        <Route path="/" element={
+          <>
+          <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}>
 
-      <Shoes shoes={shoes} />
+          </div>
+          <div className="box">
+            <Shoes shoes={shoes} />
+          </div>
+          </>
+        } />
+        <Route path="/detail" element={
+          <>
+            <div className="container">
+              <div className="row">
+                <div className="col-md-6">
+                  <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                </div>
+                <div className="col-md-6">
+                  <h4 className="pt-5">상품명</h4>
+                  <p>상품설명</p>
+                  <p>120000원</p>
+                  <button className="btn btn-danger">주문하기</button>
+                  {/* 이거 컴포넌트로 빼보기. */}
+                </div>
+              </div>
+            </div>
+          </>
+        } />
+        {/* 라우터로 페이지 나누는 법 */}
+      </Routes>
+
+      
     </div>
   )
 }
