@@ -7,13 +7,16 @@ import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.jsx'
 import Shoes from './shoes';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import Detail from './pages/detail.jsx'
 
 
 function App() {
 
   let [shoes] = useState(data);
   // 대충 서버에서 가져온 데이터들임.
+  let navigate = useNavigate();
+  // 페이지 이동을 도와주는 함수
 
   return (
     <div className="App">
@@ -22,15 +25,14 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/')}}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <Link to="/">홈</Link>
-      <Link to="detail">상세페이지</Link>
+      <Link to="/" className='home'>홈</Link>
+      <Link to="detail" className='detail'>상세페이지</Link>
 
       <Routes>
         <Route path="/" element={
@@ -43,27 +45,28 @@ function App() {
           </div>
           </>
         } />
-        <Route path="/detail" element={
-          <>
-            <div className="container">
-              <div className="row">
-                <div className="col-md-6">
-                  <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-                </div>
-                <div className="col-md-6">
-                  <h4 className="pt-5">상품명</h4>
-                  <p>상품설명</p>
-                  <p>120000원</p>
-                  <button className="btn btn-danger">주문하기</button>
-                  {/* 이거 컴포넌트로 빼보기. */}
-                </div>
-              </div>
-            </div>
-          </>
-        } />
+        <Route path="/detail" element={<Detail/>} />
+
+        <Route path='/about' element={<About/>}>
+          <Route path='member' element={<div>멤버임</div>} />
+          <Route path='location' element={<About/>}/>
+        </Route>
+        {/* 위에꺼는 nested routes라고 함. */}
+
+
         {/* 라우터로 페이지 나누는 법 */}
       </Routes>
 
+      
+    </div>
+  )
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보</h4>
+      <Outlet></Outlet>
       
     </div>
   )
