@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
+import { useState, useEffect } from "react";
 
 let YellowBtn = styled.button`
   background : ${ props => props.bg };
@@ -18,10 +19,44 @@ let Box = styled.div`
 // 2. 페이지 로딩시간 단축
 
 function Detail(props) {
+
+  useEffect(()=>{
+    console.log('안녕');
+  });
+  // useEffect 안에 있는 코드는
+  // html 렌더링 후에 동작함. 예를들어,
+
+  // for (const i = 0 ; i < 10000 ; i++) {
+  //   console.log('안녕하세요');
+  // }
+  // 위 코드를 실행하게 되면, 반복문이 실행되고 사이트가 렌더링됨. -> 효율적이지 않음.
+  // useEffect 안에 넣으면 html이 먼저 렌더링되게 때문에 효율적임.
+
+  // 그러면 useEffect를 언제 쓰면 좋은가 ?
+  // -> 어려운 연산을 할 때,
+  // -> 서버에서 데이터를 가져오는 작업.
+  // -> 타이머를 장착하는것.
+
+  const [count, setCount] = useState(3);
+  const [alertVisible, setAlertVisible] = useState(true); // 알림창 표시 여부 상태
+
+  useEffect(() => {
+    if (count > 0) {
+      const timer = setTimeout(() => {
+        setCount((prev) => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setAlertVisible(false); // 카운트가 0이 되면 알림 숨기기
+    }
+  }, [count]);
+
   let { id } = useParams();
 
   // id 값과 일치하는 상품을 배열에서 찾기
   let foundShoe = props.shoes.find((a) => a.id == id);
+
+  let [count1, setCount1] = useState(0);
 
   // 상품이 없는 경우 예외 처리
   if (!foundShoe) {
@@ -40,6 +75,13 @@ function Detail(props) {
   // 상품이 있는 경우 정상 출력
   return (
     <div className="container">
+      {alertVisible && (
+        <div className="alert alert-warning">
+          <span>{count}</span>초이내 구매시 할인
+        </div>
+      )}
+      {count}
+      <button onClick={()=>{ setCount(count1+1) }}>버튼</button>
       <Box>
         <YellowBtn bg='blue'>버튼</YellowBtn>
       </Box>
