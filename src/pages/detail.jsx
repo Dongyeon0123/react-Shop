@@ -38,18 +38,24 @@ function Detail(props) {
   // -> 타이머를 장착하는것.
 
   const [count, setCount] = useState(3);
-  const [alertVisible, setAlertVisible] = useState(true); // 알림창 표시 여부 상태
+  const [alert, setAlert] = useState(true); // 알림창 표시 여부 상태
 
   useEffect(() => {
-    if (count > 0) {
-      const timer = setTimeout(() => {
-        setCount((prev) => prev - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else {
-      setAlertVisible(false); // 카운트가 0이 되면 알림 숨기기
+    let a = setTimeout(()=>{ setAlert(false) }, 3000);
+
+    return () => {
+      clearTimeout(a);
     }
-  }, [count]);
+  }, []);
+
+  // 정리시간
+  // useEffect(() => { }) 1. 재렌더링마다 실행하고 싶으면
+  // useEffect(() => { }, []) 2. mount시 1회 실행하고 싶으면
+  // useEffect (() => {
+  //   return () => {} 3. unmount시 1회 실행하고 싶으면
+  // }, )
+  // 4. useEffect 실행 전에 뭔가 실행하려면, 언제나 return () => {}
+  // 5. 특성 state 변경 시에만 실행하고 싶으면, 2번 코드에서[] 부분에 state명 추가
 
   let { id } = useParams();
 
@@ -75,12 +81,14 @@ function Detail(props) {
   // 상품이 있는 경우 정상 출력
   return (
     <div className="container">
-      {alertVisible && (
-        <div className="alert alert-warning">
-          <span>{count}</span>초이내 구매시 할인
-        </div>
-      )}
-      {count}
+      {
+        alert == true
+        ? <div className="alert alert-warning">
+            3초이내 구매시 할인
+          </div>
+        : null
+      }
+      {count1}
       <button onClick={()=>{ setCount(count1+1) }}>버튼</button>
       <Box>
         <YellowBtn bg='blue'>버튼</YellowBtn>
