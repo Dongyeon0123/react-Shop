@@ -9,11 +9,12 @@ import data from './data.jsx'
 import Shoes from './shoes';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './pages/detail.jsx'
+import axios from 'axios'
 
 
 function App() {
 
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   // 대충 서버에서 가져온 데이터들임.
   let navigate = useNavigate();
   // 페이지 이동을 도와주는 함수
@@ -40,11 +41,22 @@ function App() {
           <div className="main-bg" style={{ backgroundImage: 'url(' + bg + ')' }}>
 
           </div>
-          <div className="box">
-            <Card shoes={shoes[0]} i={0} />
-            <Card shoes={shoes[1]} i={1} />
-            <Card shoes={shoes[2]} i={2} />
-          </div>
+          <div className="container">
+              <div className="row">
+                { shoes.map ((a, i) =>{
+                  return <Card shoes={shoes [i]} i={i} key={i}></Card>
+                })}
+              </div>
+            </div>
+            <button onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result) => {
+                  setShoes([...shoes, ...result.data]); // 기존 데이터에 추가
+                })
+                .catch(() => {
+                  console.log('데이터 가져오기 실패');
+                })
+            }}>버튼</button>
           </>
         } />
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
