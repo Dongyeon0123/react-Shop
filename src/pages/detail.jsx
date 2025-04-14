@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
 import { useState, useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 
 let YellowBtn = styled.button`
   background : ${ props => props.bg };
@@ -64,6 +66,8 @@ function Detail(props) {
 
   let [count1, setCount1] = useState(0);
 
+  let [탭, 탭변경] = useState(0);
+
   // 상품이 없는 경우 예외 처리
   if (!foundShoe) {
     return (
@@ -104,8 +108,41 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
+
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link onClick={() => {탭변경(0)}} eventKey="link0">버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => {탭변경(1)}} eventKey="link1">버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => {탭변경(2)}} eventKey="link2">버튼2</Nav.Link>
+          </Nav.Item>
+      </Nav>
+      <TapContent 탭={탭}/>
+      {
+        // 탭 == 0 ? <div>내용0</div> : null
+        // 탭 == 1 ? <div>내용1</div> : null
+      }
     </div>
   );
+}
+// if문은 html 바깥에서 써야함
+// 컴포넌트는 return를 꼭 써야함
+
+function TapContent(props) {
+  // if(props.탭 == 0) {
+  //   return <div>내용0</div>
+  // }
+  // if(props.탭 == 1) {
+  //   return <div>내용1</div>
+  // }
+  // if(props.탭 == 2) {
+  //   return <div>내용2</div>
+  // }
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.탭]
+  // 반복문으로 가능할수도
 }
 
 export default Detail;
