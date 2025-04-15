@@ -82,9 +82,21 @@ function Detail(props) {
     );
   }
 
+  let [show, setShow] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow('show');
+    }, 100);
+  
+    return () => {
+      setShow('');
+    };
+  }, []);
+
   // 상품이 있는 경우 정상 출력
   return (
-    <div className="container">
+    <div className={`container ${show}`}>
       {
         alert == true
         ? <div className="alert alert-warning">
@@ -141,8 +153,33 @@ function TapContent(props) {
   // if(props.탭 == 2) {
   //   return <div>내용2</div>
   // }
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.탭]
+  let[fade, setFade] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => { setFade('end') }, 100);
+    // 미세한 시간차를 두게 되면, 나중에 실행할 수 있기 때문에 코드가 작동됨.
+    return () => {
+      setFade('');
+    }
+  }, [props.탭])
+
+  return (
+    <div className={`start ${fade}`}>
+      { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.탭] }
+    </div>
+  )
+  
   // 반복문으로 가능할수도
 }
+
+// 애니메이션 만들고 싶으면 
+
+// 1. 애니메이션 동작 전 스타일을 담을 className 만들기 
+
+// 2. 애니메이션 동작 후 스타일을 담을 className 만들기 
+
+// 3. transition 속성도 추가
+
+// 4. 원할 때 2번 탈부착
 
 export default Detail;
