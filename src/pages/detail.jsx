@@ -82,21 +82,21 @@ function Detail(props) {
     );
   }
 
-  let [show, setShow] = useState('');
+  let [fade2, setFade2] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
-      setShow('show');
+      setFade2('end');
     }, 100);
   
     return () => {
-      setShow('');
+      setFade2('');
     };
   }, []);
 
   // 상품이 있는 경우 정상 출력
   return (
-    <div className={`container ${show}`}>
+    <div className={`container start ${fade2}`}>
       {
         alert == true
         ? <div className="alert alert-warning">
