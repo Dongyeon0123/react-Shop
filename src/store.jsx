@@ -5,8 +5,25 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 let user = createSlice({
     name : 'user',
-    initialState : 'kim'
+    initialState : 'kim',
+
+    reducers : {
+        이름변경(state) {
+            // return 'John Kim'
+            return 'John ' + state
+        },
+        함수2() {
+
+        }
+    }
 })
+
+export let { 이름변경, 함수2 } = user.actions
+// state 변경 함수들이 남음.
+
+// State 수정하는 법 요약
+// 1. state 수정 함수를 미리 만든다.
+// 2. 컴포넌트에서 store.jsx로 dispatch로 변경 요청을 보냄
 
 let stock = createSlice ({
     name : 'stock',
@@ -24,7 +41,7 @@ let item = createSlice({
     name: 'item',
     initialState: [
       { id: 0, name: 'White and Black', count: 0 },
-      { id: 1, name: 'Grey Yordan', count: 1 }
+      { id: 1, name: 'Grey Yordan', count: 0 }
     ],
     reducers: {
       increaseCount(state, action) {

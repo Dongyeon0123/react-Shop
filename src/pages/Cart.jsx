@@ -1,21 +1,26 @@
 import { Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { increaseCount } from '../store.jsx';
+import { increaseCount, 이름변경 } from '../store.jsx';
 import { useDispatch } from 'react-redux';
 
 function Cart() {
 
-    let a = useSelector((state) => { return state })
+    let state = useSelector((state) => state)
     // Redux store 가져와줌.
     // 위처럼 코드 짜면 Redux store에 있던 state가 남음
-    // console.log(a);
-    // console.log(a.user);
+    // console.log(state);
+    // console.log(state.user);
     let dispatch = useDispatch();
-    // console.log(a.user)
-    // console.log(a.stock)
+    // 이게 뭐냐면, store.jsx로 요청 보내주는 함수. 
+
+    // console.log(state.user)
+    // console.log(state.stock)
 
     return (
         <div>
+
+            {state.user}의 장바구니
+
             <Table>
                 <thead>
                     <tr>
@@ -26,15 +31,20 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                {a.item.map((item, i) => (
+                {state.item.map((item, i) => (
                     <tr key={i}>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{item.count}</td>
+                        <td>{state.item[i].id}</td>
+                        <td>{state.item[i].name}</td>
+                        <td>{state.item[i].count}</td>
                         <td>
                             <button onClick={() => dispatch(increaseCount(item.id))}>
                             +
                             </button>
+                        </td>
+                        <td>
+                            <button onClick={() => {
+                                dispatch(이름변경());                        
+                            }}> + </button>
                         </td>
                     </tr>
                 ))}
