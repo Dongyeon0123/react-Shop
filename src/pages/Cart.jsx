@@ -19,7 +19,7 @@ function Cart() {
     return (
         <div>
 
-            {state.user}의 장바구니
+            {state.user.name}의 장바구니
 
             <Table>
                 <thead>

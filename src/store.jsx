@@ -5,7 +5,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 let user = createSlice({
     name : 'user',
-    initialState : 'kim',
+    initialState : { name : 'kim', age : 20 },
 
     reducers : {
         이름변경(state) {
