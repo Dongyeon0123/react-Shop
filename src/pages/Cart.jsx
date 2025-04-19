@@ -19,7 +19,7 @@ function Cart() {
     return (
         <div>
 
-            {state.user.name}의 장바구니
+            <div style={{ textAlign: 'center' }}>{state.user.name}의 장바구니</div>
 
             <Table>
                 <thead>
