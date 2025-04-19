@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { increaseCount, 이름변경 } from '../store.jsx';
+import { increaseCount, 이름변경, 나이 } from '../store.jsx';
 import { useDispatch } from 'react-redux';
 
 function Cart() {
@@ -19,7 +19,16 @@ function Cart() {
     return (
         <div>
 
-            <div style={{ textAlign: 'center' }}>{state.user.name}의 장바구니</div>
+            <div style={{ textAlign: 'center' }}>{state.user.name} {state.user.age}의 장바구니</div>
+            <div style={{ textAlign: 'center' }}>
+                <button onClick={() => {
+                    dispatch(나이(100));
+                }}>버튼</button>
+                {/* store에서 나이 함수를 사용하려면,
+                store에서 export해주고, 이 페이지에서 import 해야됨.
+                */}
+            </div>
+
 
             <Table>
                 <thead>
