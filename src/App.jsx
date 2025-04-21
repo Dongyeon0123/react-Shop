@@ -120,3 +120,48 @@ function Card(props){
 
 
 export default App
+
+// React 프로젝트 총정리
+// 페이지 분리 및 라우팅
+// 	•	페이지를 나눌 때는 React Router의 Route 사용
+// 	•	각 페이지는 .jsx 파일로 따로 만들고 export, import해서 사용
+// 	•	페이지 이동은 useNavigate() 또는 <Link> 태그로 처리
+// 스타일링
+// 	•	컴포넌트 전용 CSS 파일 생성하거나 styled-components 사용 가능
+// 게시글/미팅글 구현
+// 	•	글을 올리면 배열에 추가 (예: setList([...list, newPost]))
+// 	•	반복문(.map)으로 리스트 출력
+// 	•	삭제 기능 구현 가능 (예: filter() 활용)
+// 	•	수정 기능: e.target.value로 입력값 가져오기
+// 이벤트 관리
+// 	•	이벤트 버블링 방지: e.stopPropagation()(ex. 좋아요 버튼 클릭 시 다른 이벤트 발생 방지)
+// 상세 페이지 구현
+// 	•	useParams()를 사용하여 URL의 고유 id 값에 따라 해당 게시글/상품 보여줌
+// 리스트 출력
+// 	•	.map() 함수를 이용해 게시글/상품을 반복 출력(데이터 개수에 따라 자동으로 확장 가능)
+// 서버 통신
+// 	•	axios 라이브러리 사용
+// import axios from 'axios';
+// axios.get('https://codingapple1.github.io/shop/data2.json')
+//   .then((result) => {
+//     setShoes([...shoes, ...result.data]);
+//   })
+//   .catch(() => {
+//     console.log('데이터 가져오기 실패');
+//   });
+// 상태 관리 - 그냥 Redux 아니고 Redux toolkit임
+// 	•	State 공유 필요 X → props로 전달
+// 	•	State 공유 필요 O → Redux 사용 (예: 좋아요, 수량 버튼 등)
+// 	•	Redux로 상품 목록 등 전역 상태도 관리 가능
+// useEffect 사용 시 주의점
+// 	•	컴포넌트 언마운트 시 정리할 작업이 있다면 클린업 함수 필요
+// useEffect(() => {
+//   // 실행할 코드
+//   return () => {
+//     // 클린업 (예: 타이머 제거 등)
+//   };
+//  }, []);
+
+// 한 줄 요약
+// React 프로젝트를 체계적으로 구성하려면 페이지 분리,
+// 상태 관리, 서버 통신, 이벤트 제어, 클린업 등 각 요소를 꼼꼼히 다루는 게 중요!
